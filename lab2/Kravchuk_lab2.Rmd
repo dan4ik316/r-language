@@ -117,7 +117,6 @@ fit.1.fo <- removeFactorsByPValue(data = data.fit,
                                    y.var.name = 'IndProd')
 kable(round(summary(fit.1.fo)$coef, 4))
 table.num <- table.num + 1
-#summary(fit.1.fo)
 ```
 Все коэффициенты модели значимы и она имеет высокий уровень коэффициента детерминации. ($R^2 =$ `r round(summary(fit.1.fo)$r.sq, 3)`)
 
@@ -149,7 +148,6 @@ table.num <- table.num + 1
 #### Таблица `r table.num` - сравнение трёх моделей
 ```{r}
 # модели с фактором PromPrices
-#anova(fit.1, fit.1.foB, fit.1.fo)
 # список построенных моделей
 models.list <- list(fit.1, fit.1.foB, fit.1.fo)
 names(models.list) <- c('fit.1', 'fit.1.foBonferroni', 'fit.1.fo')
@@ -289,7 +287,6 @@ fit.11.fo <- removeFactorsByPValue(data = data.fit,
                                    y.var.name = 'IndProd')
 kable(round(summary(fit.11.fo)$coef, 4))
 table.num <- table.num + 1
-#summary(fit.11.fo)
 ```
 Все коэффициенты модели значимы и она имеет высокий уровень коэффициента детерминации. $R^2 =$ `r round(summary(fit.11.fo)$r.sq, 3)`.
 
@@ -325,7 +322,6 @@ table.num <- table.num + 1
 #### Таблица `r table.num` - сравнение двух логарифмированных моделей
 ```{r}
 # модели с фактором PromPrices
-#anova(fit.11,  fit.11.fo)
 # список построенных моделей
 models.list <- list(fit.11, fit.11.fo)
 names(models.list) <- c('fit.11', 'fit.11.fo')
@@ -347,7 +343,6 @@ for (i in 1:length(models.list)) {
 }
 kable(df.goodness.of.fit)
 table.num <- table.num + 1
-#mean(DF1$IndProd) 
 ```
 
 Результат: 
@@ -363,11 +358,8 @@ table.num <- table.num + 1
 **Явный вид модели: $IndProd = 8,41 + 0,2581 \cdot PromPrices + 0,1947\cdot CapInvests$.**
 
 
-Сохраним нужные данные для дальнейших лабораторных и пойдём спатеньки uwu.
 ```{r}
 # 4. Сохранение нужных объектов рабочего пространства  -------------------------
-#save(list = c('data.fit.1.fo', 'data.fit.11.fo', 'fit.1.fo', 'fit.11.fo', 'DF', 'DF1', 'reg.df'), 
-#    file = 'test_lab2_Самышко.RData')
-save(list = c('data.fit.1.fo', 'data.fit.11.fo', 'fit.1.fo', 'fit.11.fo', 'DF', 'DF1', 'reg.df'), 
+save(list = c('data.fit.1.fo', 'data.fit.11.fo', 'fit.1.fo', 'fit.11.fo', 'DF', 'DF1', 'reg.df', 'models.list'), 
     file = 'test_lab2_Kravchuk.RData')
 ```

@@ -77,7 +77,7 @@ dev.off()
 DF[rownames(DF) %in% c(34, 68), c('Region', 'FO')]
 # работаем с четвёртой моделью
 # найдём расстояния Кука для влияющих регионов
-h <- augment(models.list[[3]], reg.df)
+h <- augment(models.list[[2]], reg.df)
 lev <- h[rownames(reg.df) %in% c(34, 68), '.cooksd', drop = F]
 # медианное F-значение - порог для отсечения влияющих
 n <- nrow(reg.df)
@@ -95,7 +95,7 @@ cbind(leverage = round(lev,2), f.median = round(f.median,2),
 ##  Проверка равенства среднего остатков нулю  
 ```{r, echo = FALSE}
 # номер модели
-i <- 3
+i <- 2
 # t-тест для среднего
 t.test(models.list[[i]]$residuals, mu = 0, alternative = 'two.sided')
 ```
@@ -125,7 +125,7 @@ H1: $∃ i,j:σ^2(i)≠ σ^2$ (гетероскедастичность)
 # Тест Бройша-Пагана
 ```{r, echo=FALSE}
 # номер модели в списке
-i <- 3
+i <- 2
 # тест Бройша-Пагана 
 bptest(models.list[[i]])
 # добавляем в исходную таблицу h прогнозы, остатки из модели model
@@ -145,7 +145,7 @@ bptest(models.list[[i]], data = h,
 # тест Голдфельда-Квандта 
 ```{r, echo=FALSE}
 #i <- 3
-gqtest(models.list[[3]], order.by = ~ CreditsIndebted, 
+gqtest(models.list[[2]], order.by = ~ CreditsIndebted, 
        data = h, fraction = 0.2)
 ```
 
@@ -189,7 +189,7 @@ for (j in 1:length(beta.vector)) {
  
 ```{r,  echo = FALSE}
 # номер модели в списке
-i <- 3
+i <- 2
 # тест Дарбина-Уотсона на автокорреляцию
 dwtest(models.list[[i]], alternative = 'two.sided')
 # автокорреляционный коэффициент первого порядка для остатков
@@ -202,7 +202,7 @@ cor.test(x = models.list[[i]]$residuals[1:(n - 1)],
 ## Переоценка параметров модели с учётом ошибок 
 ```{r, echo = FALSE}
 # оценки параметров модели по МНК. для примера: модель 1
-i < - 3
+i < - 2
 # исходные коэффициенты и их стандартные ошибки
 coeftest(models.list[[i]])
 # робастные оценки стандартных ошибок моделей
