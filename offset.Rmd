@@ -1,0 +1,38 @@
+---
+title: "Пересдача"
+author: "Кравчук Д. А."
+date: "29 12 2020"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+
+# Загружаем библиотеки
+library('knitr')
+library('Hmisc')          # для расчёта корреляционной матрицы
+library('corrplot')       # визуализация корреляционных матриц: corrplot()
+library('nortest')        # для теста Андерсона-Дарлинга ad.test()
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE}
+
+y <- sample(x = c(11, 12, 13, 14, 15, 16, 17, 18, 19), size = 150, replace = TRUE)
+
+e <- sample(x = c(seq(-14, 14)), size = 150, replace = TRUE)
+
+x1 <- 2.7 + 1.5*y + e
+
+DF <- data.frame(y, x1)
+
+d <- sum(DF$y, na.rm = FALSE)
+
+d1 <- d/150
+n <- DF[,1] - d1
+n1 <- n^2
+crkf <- sqrt(sum(n1, na.rm = FALSE)/150) #среднеквадратическое отклонение случайной величины
+cat(crkf)
+
+
+```
