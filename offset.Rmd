@@ -1,38 +1,54 @@
 ---
 title: "Пересдача"
 author: "Кравчук Д. А."
-date: "29 12 2020"
+date: "11 01 2021"
 output: word_document
 ---
-
 ```{r setup, include=FALSE}
-
 # Загружаем библиотеки
 library('knitr')
 library('Hmisc')          # для расчёта корреляционной матрицы
 library('corrplot')       # визуализация корреляционных матриц: corrplot()
 library('nortest')        # для теста Андерсона-Дарлинга ad.test()
-
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r, echo = FALSE}
+Y <- rt(150,18)
+e <- sample(x = c(seq(-5, 5)), size = 150, replace = TRUE)
+cat(e)
+x1 <- 4.5 - 8.4*Y + e
+x2 <- 0
+a <- 0
+group <- LETTERS[round( 1+3*runif(150))]
+DF <- data.frame(Y,e,x1,group)
 
-y <- sample(x = c(11, 12, 13, 14, 15, 16, 17, 18, 19), size = 150, replace = TRUE)
+Fun <- function(DF) {
 
-e <- sample(x = c(seq(-14, 14)), size = 150, replace = TRUE)
+MN <- mean(DF$x1)
+SD <- sd(DF$x1)
 
-x1 <- 2.7 + 1.5*y + e
-
-DF <- data.frame(y, x1)
-
-d <- sum(DF$y, na.rm = FALSE)
-
-d1 <- d/150
-n <- DF[,1] - d1
-n1 <- n^2
-crkf <- sqrt(sum(n1, na.rm = FALSE)/150) #среднеквадратическое отклонение случайной величины
-cat(crkf)
+DF$x1[abs(MN-DF$x1)<SD] <- NA
 
 
+a <- sum(is.na(DF$x1[DF$group=="A"]))
+b <- sum(is.na(DF$x1[DF$group=="B"]))
+c <- sum(is.na(DF$x1[DF$group=="C"]))
+d <- sum(is.na(DF$x1[DF$group=="D"]))
+
+a_per <- a/150*100
+b_per <- b/150*100
+c_per <- c/150*100
+d_per <- d/150*100
+
+NA_per <- round(c(a_per,b_per,c_per,d_per),2)
+group <- c("A","B","C","D")
+N <- c(a,b,c,d)
+
+
+DFp <- data.frame(group,N,NA_per)
+
+DF$X1[is.na(DF$x1)] <- MN
+DFp
+}
 ```
