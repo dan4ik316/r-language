@@ -16,7 +16,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, echo = FALSE}
 Y <- rt(150,18)
 e <- sample(x = c(seq(-5, 5)), size = 150, replace = TRUE)
-cat(e)
 x1 <- 4.5 - 8.4*Y + e
 x2 <- 0
 a <- 0
@@ -51,4 +50,5 @@ DFp <- data.frame(group,N,NA_per)
 DF$X1[is.na(DF$x1)] <- MN
 DFp
 }
+Fun(DF)
 ```
